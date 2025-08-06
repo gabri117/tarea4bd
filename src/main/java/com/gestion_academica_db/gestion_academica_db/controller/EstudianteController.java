@@ -1,11 +1,12 @@
 package com.gestion_academica_db.gestion_academica_db.controller;
 
-import com.gestion_academica_db.gestion_academica_db.entity.Estudiante;
+import com.gestion_academica_db.gestion_academica_db.dto.EstudianteDTO;
+import com.gestion_academica_db.gestion_academica_db.dto.EstudianteMapper;
 import com.gestion_academica_db.gestion_academica_db.service.EstudianteService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/estudiantes")
@@ -17,24 +18,31 @@ public class EstudianteController {
     }
 
     @PostMapping
-    public ResponseEntity<Estudiante> crear(@RequestBody Estudiante e) {
-        return ResponseEntity.ok(service.crear(e));
+    public ResponseEntity<EstudianteDTO> crear(@RequestBody EstudianteDTO dto) {
+        var estudiante = EstudianteMapper.toEntity(dto);
+        var guardado = service.crear(estudiante);
+        return ResponseEntity.ok(EstudianteMapper.toDTO(guardado));
     }
 
     @GetMapping
-    public List<Estudiante> obtenerTodos() {
-        return service.obtenerTodos();
+    public List<EstudianteDTO> obtenerTodos() {
+        return service.obtenerTodos().stream()
+                .map(EstudianteMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Estudiante> obtenerPorId(@PathVariable String id) {
-        return service.obtenerPorId(id).map(ResponseEntity::ok)
-            .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<EstudianteDTO> obtenerPorId(@PathVariable String id) {
+        return service.obtenerPorId(id)
+                .map(EstudianteMapper::toDTO)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Estudiante> actualizar(@PathVariable String id, @RequestBody Estudiante e) {
-        return ResponseEntity.ok(service.actualizar(id, e));
+    public ResponseEntity<EstudianteDTO> actualizar(@PathVariable String id, @RequestBody EstudianteDTO dto) {
+        var actualizado = service.actualizar(id, EstudianteMapper.toEntity(dto));
+        return ResponseEntity.ok(EstudianteMapper.toDTO(actualizado));
     }
 
     @DeleteMapping("/{id}")

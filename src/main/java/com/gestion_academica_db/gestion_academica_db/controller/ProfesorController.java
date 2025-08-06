@@ -1,11 +1,12 @@
 package com.gestion_academica_db.gestion_academica_db.controller;
 
-import com.gestion_academica_db.gestion_academica_db.entity.Profesor;
+import com.gestion_academica_db.gestion_academica_db.dto.ProfesorDTO;
+import com.gestion_academica_db.gestion_academica_db.dto.ProfesorMapper;
 import com.gestion_academica_db.gestion_academica_db.service.ProfesorService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/profesores")
@@ -17,24 +18,31 @@ public class ProfesorController {
     }
 
     @PostMapping
-    public ResponseEntity<Profesor> crear(@RequestBody Profesor p) {
-        return ResponseEntity.ok(service.crear(p));
+    public ResponseEntity<ProfesorDTO> crear(@RequestBody ProfesorDTO dto) {
+        var profesor = ProfesorMapper.toEntity(dto);
+        var guardado = service.crear(profesor);
+        return ResponseEntity.ok(ProfesorMapper.toDTO(guardado));
     }
 
     @GetMapping
-    public List<Profesor> obtenerTodos() {
-        return service.obtenerTodos();
+    public List<ProfesorDTO> obtenerTodos() {
+        return service.obtenerTodos().stream()
+                .map(ProfesorMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Profesor> obtenerPorId(@PathVariable String id) {
-        return service.obtenerPorId(id).map(ResponseEntity::ok)
-            .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<ProfesorDTO> obtenerPorId(@PathVariable String id) {
+        return service.obtenerPorId(id)
+                .map(ProfesorMapper::toDTO)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Profesor> actualizar(@PathVariable String id, @RequestBody Profesor p) {
-        return ResponseEntity.ok(service.actualizar(id, p));
+    public ResponseEntity<ProfesorDTO> actualizar(@PathVariable String id, @RequestBody ProfesorDTO dto) {
+        var actualizado = service.actualizar(id, ProfesorMapper.toEntity(dto));
+        return ResponseEntity.ok(ProfesorMapper.toDTO(actualizado));
     }
 
     @DeleteMapping("/{id}")
