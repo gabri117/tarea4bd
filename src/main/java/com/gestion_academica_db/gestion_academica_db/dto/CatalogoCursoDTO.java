@@ -9,5 +9,5 @@ public class CatalogoCursoDTO {
     private String codigoCurso;
     private String nombre;
     private Integer creditos;
-    private String codigoPrerrequisito; // Solo el código para evitar ciclos y mantener simple el DTO
+    private String codigoPrerrequisito; 
 }
