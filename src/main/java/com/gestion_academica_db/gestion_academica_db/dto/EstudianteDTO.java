@@ -10,5 +10,5 @@ public class EstudianteDTO {
     private String carnet;
     private String nombre;
     private String apellido;
-    private Integer edad; // <- en lugar de fechaNacimiento
+    private Integer edad; // <------- en lugar de fechaNacimiento
 }
