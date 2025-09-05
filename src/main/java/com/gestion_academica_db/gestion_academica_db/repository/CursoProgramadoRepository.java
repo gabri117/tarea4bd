@@ -4,6 +4,7 @@ import com.gestion_academica_db.gestion_academica_db.dto.ReporteCursosPorProfeso
 import com.gestion_academica_db.gestion_academica_db.entity.CursoProgramado;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
 import java.util.List;
 
 public interface CursoProgramadoRepository extends JpaRepository<CursoProgramado, Integer> {
@@ -14,9 +15,10 @@ public interface CursoProgramadoRepository extends JpaRepository<CursoProgramado
             COUNT(cp)
         )
         FROM CursoProgramado cp
-        JOIN Profesor p ON cp.codigoProfesor = p.codigoProfesor
+        JOIN cp.profesor p
         GROUP BY p.nombreCompleto
         ORDER BY COUNT(cp) DESC
     """)
     List<ReporteCursosPorProfesorDTO> contarCursosPorProfesor();
 }
+

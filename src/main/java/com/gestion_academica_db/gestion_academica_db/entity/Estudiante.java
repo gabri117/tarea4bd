@@ -2,22 +2,22 @@ package com.gestion_academica_db.gestion_academica_db.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "estudiante")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Data @NoArgsConstructor @AllArgsConstructor
 public class Estudiante {
+
     @Id
-    @Column(length = 15)
+    @Column(name = "carnet", length = 15)
     private String carnet;
 
-    @Column(length = 40, nullable = false)
+    @Column(name = "nombre", nullable = false, length = 40)
     private String nombre;
 
-    @Column(length = 40, nullable = false)
+    @Column(name = "apellido", nullable = false, length = 40)
     private String apellido;
 
     @Column(name = "fecha_nacimiento", nullable = false)

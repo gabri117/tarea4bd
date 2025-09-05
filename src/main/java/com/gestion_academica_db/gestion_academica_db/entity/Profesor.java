@@ -5,9 +5,7 @@ import lombok.*;
 
 @Entity
 @Table(name = "profesor")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Data @NoArgsConstructor @AllArgsConstructor
 public class Profesor {
     @Id
     @Column(name = "codigo_profesor", length = 10)

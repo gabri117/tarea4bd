@@ -1,9 +1,11 @@
 package com.gestion_academica_db.gestion_academica_db.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "curso_programado")
+@Data @NoArgsConstructor @AllArgsConstructor
 public class CursoProgramado {
 
     @Id
@@ -13,7 +15,7 @@ public class CursoProgramado {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "codigo_curso", referencedColumnName = "codigo_curso", nullable = false)
-    private CatalogoCurso curso;  // catálago al que pertenece
+    private CatalogoCurso curso;
 
     @Column(name = "semestre", nullable = false)
     private Integer semestre;
@@ -24,15 +26,4 @@ public class CursoProgramado {
     @ManyToOne(optional = false)
     @JoinColumn(name = "codigo_profesor", referencedColumnName = "codigo_profesor", nullable = false)
     private Profesor profesor;
-
-    public Integer getIdCursoProgramado() { return idCursoProgramado; }
-    public void setIdCursoProgramado(Integer idCursoProgramado) { this.idCursoProgramado = idCursoProgramado; }
-    public CatalogoCurso getCurso() { return curso; }
-    public void setCurso(CatalogoCurso curso) { this.curso = curso; }
-    public Integer getSemestre() { return semestre; }
-    public void setSemestre(Integer semestre) { this.semestre = semestre; }
-    public Integer getCiclo() { return ciclo; }
-    public void setCiclo(Integer ciclo) { this.ciclo = ciclo; }
-    public Profesor getProfesor() { return profesor; }
-    public void setProfesor(Profesor profesor) { this.profesor = profesor; }
 }
