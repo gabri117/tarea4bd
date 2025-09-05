@@ -1,13 +1,9 @@
 package com.gestion_academica_db.gestion_academica_db.dto;
 
-public class ReporteCursosPorProfesorDTO {
-    private String nombreProfesor;
-    private Long cantidadCursos;
+import lombok.*;
 
-    public ReporteCursosPorProfesorDTO(String nombreProfesor, Long cantidadCursos) {
-        this.nombreProfesor = nombreProfesor;
-        this.cantidadCursos = cantidadCursos;
-    }
-    public String getNombreProfesor() { return nombreProfesor; }
-    public Long getCantidadCursos() { return cantidadCursos; }
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+public class ReporteCursosPorProfesorDTO {
+    private String nombreProfesor; // p.nombreCompleto
+    private Long cantidadCursos;   // COUNT(cp)
 }

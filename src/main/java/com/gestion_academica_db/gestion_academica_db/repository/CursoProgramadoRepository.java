@@ -21,4 +21,3 @@ public interface CursoProgramadoRepository extends JpaRepository<CursoProgramado
     """)
     List<ReporteCursosPorProfesorDTO> contarCursosPorProfesor();
 }
-

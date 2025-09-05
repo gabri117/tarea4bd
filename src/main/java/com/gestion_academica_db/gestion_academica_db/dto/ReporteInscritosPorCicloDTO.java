@@ -1,13 +1,9 @@
 package com.gestion_academica_db.gestion_academica_db.dto;
 
-public class ReporteInscritosPorCicloDTO {
-    private String ciclo;
-    private Long cantidad;
+import lombok.*;
 
-    public ReporteInscritosPorCicloDTO(String ciclo, Long cantidad) {
-        this.ciclo = ciclo;
-        this.cantidad = cantidad;
-    }
-    public String getCiclo() { return ciclo; }
-    public Long getCantidad() { return cantidad; }
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+public class ReporteInscritosPorCicloDTO {
+    private Integer ciclo;      // cp.ciclo  -> Integer (tu entidad lo mapea como Integer)
+    private Long cantidad;      // COUNT(i)  -> Long
 }
